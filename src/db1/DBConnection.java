@@ -85,56 +85,20 @@ public DBConnection() {
 //			}
 //		}//end of addressInsert()
 //
-//// Statement 객체 사용-- statement는 물음표사용 x 값 다 입력 ('') 또는 '"+ +"' 사용 
-//	public void addressInsert(String name, String phone, String addr) {
-//		Statement stmt=null;
-//		int n=0;
-//		String sql="insert into addressbook(num, name, phone, addr) values(num_seq.nextval,'"+name+"','"+phone+"','"+addr+"')";
-//		//		System.out.println(sql);
-//		try {
-//				stmt=conn.createStatement();
-//				n=stmt.executeUpdate(sql);
-//				
-//				if(n>0) {
-//					conn.commit();
-//					System.out.println(n+"건의 데이터가 추가되었습니다");
-//				}
-//		} catch (SQLException e) {
-//			try {
-//				conn.rollback();
-//			} catch (SQLException e1) {
-//				// TODO Auto-generated catch block
-//				e1.printStackTrace();
-//			}
-//			e.printStackTrace();
-//		}finally {
-//			if(stmt!=null)
-//				try {
-//					stmt.close();
-//				} catch (SQLException e) {
-//					// TODO Auto-generated catch block
-//					e.printStackTrace();
-//				}
-//		}
-//	}
-	//PreparedStatement 사용
-	public void addressUpdate(int num, String phone, String addr) {
-		PreparedStatement pstmt=null;
+// Statement 객체 사용-- statement는 물음표사용 x 값 다 입력 ('') 또는 '"+ +"' 사용 
+	public void addressInsert(String name, String phone, String addr) {
+		Statement stmt=null;
 		int n=0;
-		
-		String sql="update addressbook set phone=?, addr=? where num=?";
+		String sql="insert into addressbook(num, name, phone, addr) values(num_seq.nextval,'"+name+"','"+phone+"','"+addr+"')";
+		//		System.out.println(sql);
 		try {
-			pstmt=conn.prepareStatement(sql);
-			pstmt.setString(1, phone);
-			pstmt.setString(2, addr);
-			pstmt.setInt(3, num );
-			n=pstmt.executeUpdate();
-			
-			if(n>0) {
-				conn.commit();
-				System.out.println(n+"건의 데이터가 수정되었습니다");
-			}
-			
+				stmt=conn.createStatement();
+				n=stmt.executeUpdate(sql);
+				
+				if(n>0) {
+					conn.commit();
+					System.out.println(n+"건의 데이터가 추가되었습니다");
+				}
 		} catch (SQLException e) {
 			try {
 				conn.rollback();
@@ -144,16 +108,52 @@ public DBConnection() {
 			}
 			e.printStackTrace();
 		}finally {
-			
-				try {if(pstmt!=null)		pstmt.close();
+			if(stmt!=null)
+				try {
+					stmt.close();
 				} catch (SQLException e) {
-					System.out.println("pstmt객체 닫다가 실패");
+					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 		}
 	}
+	//PreparedStatement 사용
+//	public void addressUpdate(int num, String phone, String addr) {
+//		PreparedStatement pstmt=null;
+//		int n=0;
+//		
+//		String sql="update addressbook set phone=?, addr=? where num=?";
+//		try {
+//			pstmt=conn.prepareStatement(sql);
+//			pstmt.setString(1, phone);
+//			pstmt.setString(2, addr);
+//			pstmt.setInt(3, num );
+//			n=pstmt.executeUpdate();
+//			
+//			if(n>0) {
+//				conn.commit();
+//				System.out.println(n+"건의 데이터가 수정되었습니다");
+//			}
+//			
+//		} catch (SQLException e) {
+//			try {
+//				conn.rollback();
+//			} catch (SQLException e1) {
+//				// TODO Auto-generated catch block
+//				e1.printStackTrace();
+//			}
+//			e.printStackTrace();
+//		}finally {
+//			
+//				try {if(pstmt!=null)		pstmt.close();
+//				} catch (SQLException e) {
+//					System.out.println("pstmt객체 닫다가 실패");
+//					e.printStackTrace();
+//				}
+//		}
+//	}
 	
-//	//Statement 객체 사용
+	//Statement 객체 사용
 //	public void addressUpdate(int num, String phone, String addr) {
 //		Statement stmt=null;
 //		int n=0;
@@ -183,6 +183,39 @@ public DBConnection() {
 //						e.printStackTrace();
 //					}
 //				}
+//	}
+	
+	
+//	public void addressDelete(String name, String phone, String addr) {
+//			Statement stmt=null;
+//			int n=0;
+//			String sql="insert into addressbook(num, name, phone, addr) values(num_seq.nextval,'"+name+"','"+phone+"','"+addr+"')";
+//			//		System.out.println(sql);
+//			try {
+//					stmt=conn.createStatement();
+//					n=stmt.executeUpdate(sql);
+//					
+//					if(n>0) {
+//						conn.commit();
+//						System.out.println(n+"건의 데이터가 추가되었습니다");
+//					}
+//			} catch (SQLException e) {
+//				try {
+//					conn.rollback();
+//				} catch (SQLException e1) {
+//					// TODO Auto-generated catch block
+//					e1.printStackTrace();
+//				}
+//				e.printStackTrace();
+//			}finally {
+//				if(stmt!=null)
+//					try {
+//						stmt.close();
+//					} catch (SQLException e) {
+//						// TODO Auto-generated catch block
+//						e.printStackTrace();
+//					}
+//			}
 //	}
 }// end of class
 
