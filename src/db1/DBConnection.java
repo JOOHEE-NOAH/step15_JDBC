@@ -1,5 +1,6 @@
 package db1;
-
+//Statement : 매번 컴파일 후 사용
+//PreparedStatement : 한번 컴파일 후 사용, 입력받아서 처리하는 경우 --Statement보다 훨 좋음
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -86,42 +87,42 @@ public DBConnection() {
 //		}//end of addressInsert()
 //
 // Statement 객체 사용-- statement는 물음표사용 x 값 다 입력 ('') 또는 '"+ +"' 사용 
-	public void addressInsert(String name, String phone, String addr) {
-		Statement stmt=null;
-		int n=0;
-		String sql="insert into addressbook(num, name, phone, addr) values(num_seq.nextval,'"+name+"','"+phone+"','"+addr+"')";
-		//		System.out.println(sql);
-		try {
-				stmt=conn.createStatement();
-				n=stmt.executeUpdate(sql);
-				
-				if(n>0) {
-					conn.commit();
-					System.out.println(n+"건의 데이터가 추가되었습니다");
-				}
-		} catch (SQLException e) {
-			try {
-				conn.rollback();
-			} catch (SQLException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
-			e.printStackTrace();
-		}finally {
-			if(stmt!=null)
-				try {
-					stmt.close();
-				} catch (SQLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-		}
-	}
+//	public void addressInsert(String name, String phone, String addr) {
+//		Statement stmt=null;
+//		int n=0;
+//		String sql="insert into addressbook(num, name, phone, addr) values(num_seq.nextval,'"+name+"','"+phone+"','"+addr+"')";
+//		//		System.out.println(sql);
+//		try {
+//				stmt=conn.createStatement();
+//				n=stmt.executeUpdate(sql);
+//				
+//				if(n>0) {
+//					conn.commit();
+//					System.out.println(n+"건의 데이터가 추가되었습니다");
+//				}
+//		} catch (SQLException e) {
+//			try {
+//				conn.rollback();
+//			} catch (SQLException e1) {
+//				// TODO Auto-generated catch block
+//				e1.printStackTrace();
+//			}
+//			e.printStackTrace();
+//		}finally {
+//			if(stmt!=null)
+//				try {
+//					stmt.close();
+//				} catch (SQLException e) {
+//					// TODO Auto-generated catch block
+//					e.printStackTrace();
+//				}
+//		}
+//	}
 	//PreparedStatement 사용
 //	public void addressUpdate(int num, String phone, String addr) {
 //		PreparedStatement pstmt=null;
 //		int n=0;
-//		
+//												1		2			3
 //		String sql="update addressbook set phone=?, addr=? where num=?";
 //		try {
 //			pstmt=conn.prepareStatement(sql);
@@ -154,69 +155,79 @@ public DBConnection() {
 //	}
 	
 	//Statement 객체 사용
-//	public void addressUpdate(int num, String phone, String addr) {
-//		Statement stmt=null;
-//		int n=0;
-//		
-//		String sql="update addressbook set phone='"+phone+"',addr='"+addr+"' where num=5";
-//		//		System.out.println(sql);
+	public void addressUpdate(int num, String phone, String addr) {
+	      Statement stmt=null;
+	      int n=0;
+	      
+	      String sql="update addressbook set phone='"+phone+"', addr='"+addr+"' where num="+num;
+//	      System.out.println(sql);
+	      try {
+	         stmt=conn.createStatement();
+	         n=stmt.executeUpdate(sql);
+	         
+	         if(n>0) {
+	            conn.commit();
+	            System.out.println(n+"건의 데이터가 수정되었습니다");
+	         }
+	         
+	         
+	      } catch (SQLException e) {
+	         try {
+	            conn.rollback();
+	         } catch (SQLException e1) {
+	            // TODO Auto-generated catch block
+	            e1.printStackTrace();
+	         }
+	         System.out.println("데이터 수정에 실패하였습니다");
+	         e.printStackTrace();
+	      }finally {
+	            try {
+	               if(stmt!=null)   stmt.close();
+	            } catch (SQLException e) {
+	               // TODO Auto-generated catch block
+	               e.printStackTrace();
+	            }
+	      }   
+
+	}
+	
+//	public void addressDelete(int num) {
+//			PreparedStatement pstmt=null;
+//			int n=0;
+//			String sql="delete from addressbook where num=?";
 //			try {
-//				stmt=conn.createStatement();
-//				n=stmt.executeUpdate(sql);
+//				pstmt=conn.prepareStatement(sql);
+//				pstmt.setInt(1, num);
+//				n=pstmt.executeUpdate();
 //				
 //				if(n>0) {
 //					conn.commit();
 //					System.out.println(n+"건의 데이터가 수정되었습니다");
 //				}
-//			} catch (SQLException e2) {
-//				try {
-//					conn.rollback();
-//				} catch (SQLException e) {
-//					// TODO Auto-generated catch block
-//					e.printStackTrace();
-//				}
-//				e2.printStackTrace();
-//			}finally {
-//					try {if(stmt!=null)		stmt.close();
-//					} catch (SQLException e) {
-//						System.out.println("stmt객체 닫다가 실패");
-//						e.printStackTrace();
-//					}
-//				}
-//	}
-	
-	
-//	public void addressDelete(String name, String phone, String addr) {
-//			Statement stmt=null;
-//			int n=0;
-//			String sql="insert into addressbook(num, name, phone, addr) values(num_seq.nextval,'"+name+"','"+phone+"','"+addr+"')";
-//			//		System.out.println(sql);
-//			try {
-//					stmt=conn.createStatement();
-//					n=stmt.executeUpdate(sql);
-//					
-//					if(n>0) {
-//						conn.commit();
-//						System.out.println(n+"건의 데이터가 추가되었습니다");
-//					}
 //			} catch (SQLException e) {
-//				try {
-//					conn.rollback();
-//				} catch (SQLException e1) {
-//					// TODO Auto-generated catch block
-//					e1.printStackTrace();
-//				}
+//				System.out.println("수정에 실패하였습니다.");
 //				e.printStackTrace();
-//			}finally {
-//				if(stmt!=null)
-//					try {
-//						stmt.close();
-//					} catch (SQLException e) {
-//						// TODO Auto-generated catch block
-//						e.printStackTrace();
-//					}
 //			}
 //	}
+	//Statement 객체
+//	public void addressDelete(int num) {
+//	Statement stmt=null;
+//	int n=0;
+//	String sql="delete from addressbook where num="+num;
+//	try {
+//		stmt=conn.createStatement();
+//		n=stmt.executeUpdate(sql);
+//		
+//		if(n>0) {
+//			conn.commit();
+//			System.out.println(n+"건의 데이터가 수정되었습니다");
+//		}
+//	} catch (SQLException e) {
+//		System.out.println("수정에 실패하였습니다.");
+//		e.printStackTrace();
+//	}
+//}			
+	
 }// end of class
 
 

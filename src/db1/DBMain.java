@@ -6,7 +6,7 @@ public class DBMain {
 		DBConnection db=new DBConnection();
 	
 	//데이터 삭제하기
-	db.addressDelete(4);	
+//	db.addressDelete(4);	
 		
 	//---------3------------	
 	//데이터 수정하기
