@@ -36,6 +36,30 @@ public class EmpMain {
 				dao.addressInsert(name,phone,addr);
 				break;
 				
+			case 3 : System.out.print("수정할 사람 이름 : ");	name=sc.next();
+			if(dao.addressSearch(name)) {
+				System.out.print("바꿀 전화 입력 : ");	phone=sc.next();
+				System.out.print("바꿀 주소 입력 : ");	addr=sc.next();
+				
+				dao.addressUpdate(name, phone, addr); //name은 검색 조건 phone,addr 수정
+			}else {
+				System.out.println("수정 할 대상이 되는 사람이 없어요...");
+			}
+				break;
+			case 4 :
+				System.out.print("삭제 할 사람 : ");	name=sc.next();
+				if(dao.addressSearch(name)) {
+					dao.addressDelete(name);
+				}
+				break;
+			case 5 :
+				System.out.print("찾는 사람 이름 : ");	name=sc.next();
+				if(!dao.addressSearch(name)) { //논리 부정
+					System.out.println("찾는 사람이 없어요");
+				}else {
+					
+				}
+				break;
 			case 6 :
 				sc.close();
 				System.out.println("***** 종료합니다 *****");

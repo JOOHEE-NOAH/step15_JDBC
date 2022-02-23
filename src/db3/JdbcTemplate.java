@@ -1,4 +1,4 @@
-package db2;
+package db3;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
