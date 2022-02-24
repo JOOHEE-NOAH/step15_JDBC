@@ -70,7 +70,7 @@ public class UserDao {
 				entity.setName(rs.getString("name"));
 				entity.setScore(rs.getDouble("score"));
 				
-			}
+			} 
 			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -116,5 +116,35 @@ public class UserDao {
 //	      
 //	      return entity;
 //	   }
+	
+//end of select User
+
+	public int insertUser(UserEntity entity) {
+		Connection conn=getConnection();
+		PreparedStatement pstmt=null;
+		int n=0;
+		
+		String sql="insert into userinfo(num, id, passwd, name, score) values(num_seq.nextval, ?,?,?,?)";
+		
+		try {
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setString(1, entity.getId());
+			pstmt.setString(2, entity.getPasswd());
+			pstmt.setString(3, entity.getName());
+			pstmt.setDouble(4, entity.getScore());
+			n=pstmt.executeUpdate();
+			
+			if(n>0) {
+				commit(conn);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	
+		return n;
+		
+	}// end of insertUser
 	
 }
