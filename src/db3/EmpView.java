@@ -15,4 +15,20 @@ public class EmpView {
 			System.out.println("출력할 데이터가 없어요....");
 		}
 	}
+	
+	public void addressInsert(int n) {
+		if(n>0)
+		System.out.println(n+"건의 데이터가 추가되었습니다");
+		else System.out.println("데이터 추가에 실패하였습니다");
+	}
+	public void addressSearch(EmpEntity entity) {
+		if(entity!=null) {
+			System.out.print(entity.getNum()+"\t");
+			System.out.print(entity.getName()+"\t");
+			System.out.print(entity.getPhone()+"\t");
+			System.out.print(entity.getAddr()+"\n");
+		}else {
+			System.out.println("찾는 사람이 없어요...");
+		}
+	}
 }

@@ -112,7 +112,7 @@ public class EmpDao {
 			pstmt.setString(1, phone);
 			pstmt.setString(2, addr);
 			pstmt.setString(3, name);
-			pstmt.executeUpdate();
+			n=pstmt.executeUpdate();
 			
 			if(n>0) {
 				conn.commit();

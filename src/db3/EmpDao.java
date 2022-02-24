@@ -1,12 +1,14 @@
 package db3;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import static db2.JdbcTemplate.close;
 import static db3.JdbcTemplate.*;
 
 public class EmpDao {
@@ -43,4 +45,67 @@ public class EmpDao {
 			return list;
 	
 }//end of addressList
+	
+	public int addressInsert(EmpEntity entity) {
+		Connection conn=getConnection();
+		PreparedStatement pstmt=null;
+		int n=0;
+		
+		String sql="insert into addressbook(num, name, phone, addr) values(num_seq.nextval, ?,?,?)";
+		try {
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setString(1, entity.getName());
+			pstmt.setString(2, entity.getPhone());
+			pstmt.setString(3, entity.getAddr());
+			n=pstmt.executeUpdate();
+			
+			if(n>0) {
+				commit(conn);
+			//	System.out.println(n+"건의 데이터가 추가되었습니다");
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return n;
+	}//end of addressInsert
+	
+	public EmpEntity addressSearch(String name) {
+		Connection conn=getConnection();
+		Statement stmt=null;
+		ResultSet rs=null;
+		EmpEntity entity=null;
+		
+		String sql="select * from addressbook where name='"+name+"'";
+		
+		try {
+			stmt=conn.createStatement();
+			rs=stmt.executeQuery(sql);
+			if(rs.next()) {
+				entity= new EmpEntity();
+				
+				entity.setNum(rs.getInt("num"));//rs에서 추출한 데이터를 entity에 대입
+				entity.setName(rs.getString("name"));
+				entity.setPhone(rs.getString("phone"));
+				entity.setAddr(rs.getString("addr"));
+				
+			//	System.out.println(rs.getInt("num"));
+			
+			}
+			} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(conn);
+			close(rs);
+			close(stmt);
+		}
+		return entity; //-------수행
+	}//end of addressSearch
+
+
+
+
+
 }	
