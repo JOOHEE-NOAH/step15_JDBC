@@ -27,6 +27,7 @@ public class EmpDao {
 //			if(rs!=null) 
 //				System.out.println("데이터 가져오기 성공");
 			list=new ArrayList<EmpEntity>();	
+			
 			while(rs.next()) {
 				//엔티티에 저장-> 리스트에 담아서 리턴
 				entity=new EmpEntity();
@@ -103,8 +104,60 @@ public class EmpDao {
 		}
 		return entity; //-------수행
 	}//end of addressSearch
-
-
+	
+	public int addressUpdate(String name, String phone, String addr) {
+		Connection conn=getConnection();
+		PreparedStatement pstmt=null;
+		int n=0;
+		
+		String sql="update addressbook set phone=?, addr=? where name=?"; //where 전에 ,찍지 않도록 주의
+		try {
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setString(1, phone);
+			pstmt.setString(2, addr);
+			pstmt.setString(3, name);
+			n=pstmt.executeUpdate();
+			
+			if(n>0) {
+				commit(conn);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(conn);
+			close(pstmt);
+		}
+		
+		return n;
+	}//end of addressUpdate
+	
+	public int addressDelete(String name) {
+		int n=0;
+		Connection conn=getConnection();
+		PreparedStatement pstmt=null;
+		
+		String sql="delete from addressbook where name=?";
+		
+		try {
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setString(1, name);
+			n=pstmt.executeUpdate();
+			
+			if(n>0) {
+			commit(conn);
+			
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+			close(conn);
+		}
+		
+		return n;
+	}
 
 
 

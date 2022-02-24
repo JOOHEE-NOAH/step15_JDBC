@@ -31,4 +31,16 @@ public class EmpView {
 			System.out.println("찾는 사람이 없어요...");
 		}
 	}
+	public void addressUpdate(int n) {
+		if(n>0)
+		System.out.println(n+"건의 데이터가 수정되었습니다");
+		else System.out.println("데이터 수정에 실패하였습니다");
+	}
+	
+	public void addressDelete(int n) {
+		if(n>0)
+		System.out.println(n+"건의 데이터가 삭제되었습니다");
+		else System.out.println("데이터 삭제에 실패하였습니다");
+	}
+	
 }

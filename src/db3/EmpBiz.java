@@ -32,5 +32,19 @@ public class EmpBiz {
 		
 		return ck;
 	}
-
+	public void addressUpdate(String name, String phone, String addr) {
+		EmpDao dao=new EmpDao();
+		int n=dao.addressUpdate(name,phone,addr);
+		
+		EmpView view=new EmpView();
+		view.addressUpdate(n);
+	}
+	
+	public void addressDelete(String name) {
+		EmpDao dao=new EmpDao();
+		int n=dao.addressDelete(name);
+		
+		EmpView view=new EmpView();
+		view.addressDelete(n);
+	}
 }

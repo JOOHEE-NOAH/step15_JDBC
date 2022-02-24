@@ -37,7 +37,10 @@ public class EmpMain {
 					
 					biz.addressUpdate(name, phone, addr);
 				}break;
-		
+		case 4 :
+				System.out.print("삭제 할 사람 : "); 	name=sc.next();
+				biz.addressDelete(name);
+				break;
 		case 5 : System.out.print("찾는 사람 : ");	name=sc.next();
 				biz.addressSearch(name);
 				break;
