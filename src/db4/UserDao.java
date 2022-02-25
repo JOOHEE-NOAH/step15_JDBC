@@ -118,33 +118,62 @@ public class UserDao {
 //	   }
 	
 //end of select User
-
+//-----------³ªÀÇ ´ä
+//	public int insertUser(UserEntity entity) {
+//		Connection conn=getConnection();
+//		PreparedStatement pstmt=null;
+//		int n=0;
+//		
+//		String sql="insert into userinfo(num, id, passwd, name, score) values(num_seq.nextval, ?,?,?,?)";
+//		
+//		try {
+//			pstmt=conn.prepareStatement(sql);
+//			pstmt.setString(1, entity.getId());
+//			pstmt.setString(2, entity.getPasswd());
+//			pstmt.setString(3, entity.getName());
+//			pstmt.setDouble(4, entity.getScore());
+//			n=pstmt.executeUpdate();
+//			
+//			if(n>0) {
+//				commit(conn);
+//			}
+//		} catch (SQLException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//		
+//	
+//		return n;
+//		
+//	}// end of insertUser
+//	
 	public int insertUser(UserEntity entity) {
 		Connection conn=getConnection();
-		PreparedStatement pstmt=null;
+		Statement stmt=null;
 		int n=0;
 		
-		String sql="insert into userinfo(num, id, passwd, name, score) values(num_seq.nextval, ?,?,?,?)";
+		String sql="insert into userinfo(num, id, passwd, name, score) values(num_seq.nextval, '"+entity.getId()+"','"+entity.getId()+"','"+entity.getName()+"','"+entity.getScore()+"')";
 		
-		try {
-			pstmt=conn.prepareStatement(sql);
-			pstmt.setString(1, entity.getId());
-			pstmt.setString(2, entity.getPasswd());
-			pstmt.setString(3, entity.getName());
-			pstmt.setDouble(4, entity.getScore());
-			n=pstmt.executeUpdate();
-			
-			if(n>0) {
-				commit(conn);
+		
+			try {
+				stmt=conn.createStatement();
+				n=stmt.executeUpdate(sql);
+				
+				if(n>0) {
+					commit(conn);
+				}		
+			} catch (SQLException e) {
+				rollback(conn);
+				e.printStackTrace();
+			}finally {
+				close(conn);
+				close(stmt);
 			}
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
+			
 	
 		return n;
 		
 	}// end of insertUser
+	
 	
 }
