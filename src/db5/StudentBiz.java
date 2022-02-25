@@ -12,20 +12,21 @@ public class StudentBiz {
 		StudentDao dao=new StudentDao();
 		StudentView view=new StudentView();
 
-		if(kor>100 || kor<0|| eng>100 ||eng<0 ||mat>100||mat<0) {
-			view.insertStudent(name);
-		}else {
-			name=dao.insertStudent(entity);
-			view.insertStudent(name);
-		}
+//----------or 연산
+//		if(kor>100 || kor<0|| eng>100 ||eng<0 ||mat>100||mat<0) {
+//			view.insertStudent(name);
+//		}else {
+//			name=dao.insertStudent(entity);
+//			view.insertStudent(name);
+//		}
 		
 		
 		
 // ---and연산		
-//		if(kor<=100 && kor>=0 && eng<=100 && eng>=0 && mat<=100 && mat>=0){
-//		//if(kor>100 || kor<0 || eng>100 || eng<0 || mat>100 || mat<0)
-//			name=dao.insertStudent(entity);
-//		} 	view.insertStudent(name);
+		if(kor<=100 && kor>=0 && eng<=100 && eng>=0 && mat<=100 && mat>=0){
+			name=dao.insertStudent(entity);
+		}	
+		 	view.insertStudent(name);
 	
 //----나의 답-----		
 //		StudentDao dao=new StudentDao();
