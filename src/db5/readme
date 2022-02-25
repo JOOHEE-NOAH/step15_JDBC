@@ -1,0 +1,59 @@
+db5
+  student.sql    
+  JdbcTemplate.java
+  StudentEntity.java   
+        -num:int
+        -name:String
+        -kor:int
+        -eng:int
+        -mat:int
+        -tot:int
+        -avg:double
+        +Student()
+        +Student(name:String,eng:int,eng:int,mat:int)
+        +Student(num:int,name:String,eng:int,eng:int,mat:int)
+  StudentMain.java      
+  StudentBiz.java      --들어온 kor,eng,mat값중 0~100사이의 점수가 아니면 오류리턴   
+     +insertStudent(entity:StudentEntity):void
+     +getStudent(name:String):void
+     +getStudentList():void
+  StudentDao.java      --DB연동
+     +insertStudent(entity:StudentEntity):String
+     +getStudent(name:String):StudentEntity
+     +getStudentList():List<StudentEntity>  
+  StudentView.java     --결과값 출력
+     +insertStudent(name:String):void
+     +getStudent(entity:StudentEntity):void
+     +getStudentList(list:List<StudentEntity>)
+  
+  [결과화면]
+  1.추가  2.검색  3.전체보기 4.종료
+  선택(1-4) : 1
+  이름을 입력 : kim 
+  국어점수 입력 : 95
+  영어점수 입력 : 120
+  수학점수 입력 : 35
+  점수 입력오류!! 다시 입력하시오
+  
+  1.추가  2.검색  3.전체보기 4.종료
+  선택(1-4) : 1
+  이름을 입력 : kim 
+  국어점수 입력 : 95
+  영어점수 입력 : 60
+  수학점수 입력 : 35
+  kim님이 추가 되었습니다
+  
+  1.추가  2.검색  3.전체보기 4.종료
+  선택(1-4) : 2
+  이름을 입력하시오 : kim
+  이름 : kim   총점 : 190   평균 : 63.33
+  
+  
+  1.추가  2.검색  3.전체보기 4.종료
+  선택(1-4) : 3
+  이름 : kim   국어 : 95   영어 : 60  수학 : 35  총점 : 190  평균 : 63.33
+  이름 : lee   국어 : 100  영어 : 100 수학 : 100 총점 : 300  평균 : 100.00
+  
+  1.추가  2.검색  3.전체보기 4.종료
+  선택(1-4) : 4
+  ** 고생 하셨습니다 **

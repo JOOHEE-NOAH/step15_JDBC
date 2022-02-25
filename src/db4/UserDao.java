@@ -138,8 +138,11 @@ public class UserDao {
 //				commit(conn);
 //			}
 //		} catch (SQLException e) {
-//			// TODO Auto-generated catch block
+//			rollback(conn);
 //			e.printStackTrace();
+//		}finally {
+//			close(conn);
+//			close(stmt);
 //		}
 //		
 //	
@@ -152,7 +155,7 @@ public class UserDao {
 		Statement stmt=null;
 		int n=0;
 		
-		String sql="insert into userinfo(num, id, passwd, name, score) values(num_seq.nextval, '"+entity.getId()+"','"+entity.getId()+"','"+entity.getName()+"','"+entity.getScore()+"')";
+		String sql="insert into userinfo(num, id, passwd, name, score) values(num_seq.nextval, '"+entity.getId()+"','"+entity.getPasswd()+"','"+entity.getName()+"','"+entity.getScore()+"')";
 		
 		
 			try {

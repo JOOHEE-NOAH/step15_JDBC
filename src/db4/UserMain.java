@@ -27,14 +27,14 @@ public class UserMain {
 		
 		System.out.println("*************************");
 		
-		//추가하기
-		int n=dao.insertUser(new UserEntity("cc","2222","park",85.93));
-		
-		if(n>0)
-			System.out.println(n+"건의 데이터가 추가되었습니다");
-			else 
-				System.out.println("데이터 추가에 실패하였습니다");
-		
+//		//추가하기
+//		int n=dao.insertUser(new UserEntity("dd","3333","choi",88.63));
+//		
+//		if(n>0)
+//			System.out.println(n+"건의 데이터가 추가되었습니다");
+//			else 
+//				System.out.println("데이터 추가에 실패하였습니다");
+//		
 		
 	}
 
