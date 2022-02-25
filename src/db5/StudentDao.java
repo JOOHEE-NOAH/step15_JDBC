@@ -17,43 +17,72 @@ import static db5.JdbcTemplate.*;
 //DB¿¬µ¿
 public class StudentDao {
 	public String insertStudent(StudentEntity entity) {
-		Connection conn=getConnection();
-		PreparedStatement pstmt=null;
-		String sql="insert into student(num,name,kor,eng,mat) values(n_sql.nextval,?,?,?,?)";
-		int n =0;
-		try {
-			pstmt=conn.prepareStatement(sql);
-			pstmt.setString(1, entity.getName());
-			pstmt.setInt(2, entity.getKor());
-			pstmt.setInt(3, entity.getEng());
-			pstmt.setInt(4, entity.getMat());
-			n = pstmt.executeUpdate();
-			
-			if(n>0) {
-				commit(conn);
-			}
+	String name=null;
+	int n =0;
+	Connection conn=getConnection();
+	PreparedStatement pstmt=null;
+	
+	String sql="insert into student(num,name,kor,eng,mat) values(n_sql.nextval,?,?,?,?)";
+	try {
+		pstmt=conn.prepareStatement(sql);
+		pstmt.setString(1, entity.getName());
+		pstmt.setInt(2, entity.getKor());
+		pstmt.setInt(3, entity.getEng());
+		pstmt.setInt(4, entity.getMat());
+		n = pstmt.executeUpdate();
 		
+		if(n>0) {
+			commit(conn);
+			name=entity.getName();
+			
+		}
+	
 		} catch (SQLException e) {
 			rollback(conn);
 		}finally {
 			close(conn);
 			close(pstmt);
 		}
-		
-		return entity.getName();
+	
+//		Connection conn=getConnection();
+//		PreparedStatement pstmt=null;
+//		String sql="insert into student(num,name,kor,eng,mat) values(n_sql.nextval,?,?,?,?)";
+//		int n =0;
+//		try {
+//			pstmt=conn.prepareStatement(sql);
+//			pstmt.setString(1, entity.getName());
+//			pstmt.setInt(2, entity.getKor());
+//			pstmt.setInt(3, entity.getEng());
+//			pstmt.setInt(4, entity.getMat());
+//			n = pstmt.executeUpdate();
+//			
+//			if(n>0) {
+//				commit(conn);
+//			}
+//		
+//		} catch (SQLException e) {
+//			rollback(conn);
+//		}finally {
+//			close(conn);
+//			close(pstmt);
+//		}
+//		
+		return name;
 	}//end of insertStudent
 	
     public StudentEntity getStudent(String name) {
     	Connection conn=getConnection();
-		Statement stmt=null;
+		PreparedStatement pstmt=null;
 		ResultSet rs=null;
 		StudentEntity entity=null;
 		
-		String sql="select * from student where name='"+name+"'";
+		String sql="select * from student where name=?";
 		
 		try {
-			stmt=conn.createStatement();
-			rs=stmt.executeQuery(sql);
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setString(1, name);
+			rs=pstmt.executeQuery();
+			
 			if(rs.next()) {
 				entity= new StudentEntity();
 				
@@ -62,13 +91,15 @@ public class StudentDao {
 				entity.setKor(rs.getInt("kor"));
 				entity.setEng(rs.getInt("eng"));
 				entity.setMat(rs.getInt("mat"));
+				entity.setTot(entity.getKor()+entity.getEng()+entity.getMat());
+				entity.setAvg(entity.getTot()/3.0);
 			}	
 		} catch (SQLException e) {
 			rollback(conn);
 		}finally {
 			close(conn);
 			close(rs);
-			close(stmt);
+			close(pstmt);
 		}
 		
 		return entity;
@@ -82,12 +113,12 @@ public class StudentDao {
     	ResultSet rs=null;
     	List<StudentEntity> list=new ArrayList<StudentEntity>();
     	StudentEntity entity=null;
-    	
     	String sql="select * from student order by num";
     	
     	try {
 			pstmt=conn.prepareStatement(sql);
 			rs=pstmt.executeQuery();
+			list=new ArrayList<StudentEntity>();
 			
 			while(rs.next()) {
 				entity=new StudentEntity();

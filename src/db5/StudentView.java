@@ -6,11 +6,18 @@ import java.util.List;
 public class StudentView {
 	
 	public void insertStudent(String name) {
-		if(name==null) {
-			System.out.println("점수 입력오류!! 다시 입력하시오");
-		}else {
+		if(name!=null) {
 			System.out.println(name+"님이 추가 되었습니다");
+		}else {
+			System.out.println("점수 입력오류!! 다시 입력하시오");
 		}
+		
+//----나의 답-----		
+//		if(name==null) {
+//			System.out.println("점수 입력오류!! 다시 입력하시오");
+//		}else {
+//			System.out.println(name+"님이 추가 되었습니다");
+//		}
 			
 	}
 	
@@ -22,10 +29,12 @@ public class StudentView {
 		}else {
 			System.out.println("찾는 사람이 없어요...");
 		}
-	}
+	}//end of getStudent
+	
 	public void getStudentList(List<StudentEntity> list) {
 		if(list!=null) {
 		for(StudentEntity entity: list) {
+			System.out.print("번호 :"+entity.getNum()+"\t");
 			System.out.print("이름 :"+entity.getName()+"\t");
 			System.out.print("국어 :"+entity.getKor()+"\t");
 			System.out.print("영어 :"+entity.getEng()+"\t");
@@ -37,6 +46,6 @@ public class StudentView {
 	}else {
 		System.out.println("출력할 데이터가 없어요....");
 	}
-	}
+	}//end of getStudentList
 	
 }
