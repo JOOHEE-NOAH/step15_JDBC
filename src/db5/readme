@@ -11,7 +11,7 @@ db5
         -avg:double
         +Student()
         +Student(name:String,eng:int,eng:int,mat:int)
-        +Student(num:int,name:String,eng:int,eng:int,mat:int)
+        +Student(num:int,name:String,eng:int,eng:int,mat:int)//
   StudentMain.java      
   StudentBiz.java      --들어온 kor,eng,mat값중 0~100사이의 점수가 아니면 오류리턴   
      +insertStudent(entity:StudentEntity):void
