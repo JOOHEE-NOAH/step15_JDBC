@@ -80,15 +80,14 @@ public class StudentDao {
     	Connection conn=getConnection();
     	PreparedStatement pstmt=null;
     	ResultSet rs=null;
+    	List<StudentEntity> list=new ArrayList<StudentEntity>();
     	StudentEntity entity=null;
-    	List<StudentEntity> list=null;
     	
     	String sql="select * from student order by num";
     	
     	try {
 			pstmt=conn.prepareStatement(sql);
 			rs=pstmt.executeQuery();
-			list=new ArrayList<StudentEntity>();
 			
 			while(rs.next()) {
 				entity=new StudentEntity();
@@ -97,6 +96,8 @@ public class StudentDao {
 				entity.setKor(rs.getInt("kor"));
 				entity.setEng(rs.getInt("eng"));
 				entity.setMat(rs.getInt("mat"));
+				entity.setTot(entity.getKor()+entity.getEng()+entity.getMat());
+				entity.setAvg(entity.getTot()/3.0);
 				
 				list.add(entity);
 			}

@@ -75,8 +75,14 @@ public class StudentEntity {
 	}
 	
 	public double getAvg() {
-		avg=(double)(kor+ eng+ mat)/3;
+		avg=(double)(kor+ eng+ mat)/3.0;
 		return avg;
+	}
+	public void setTot(int tot) {
+		this.tot= tot;
+	}
+		public void setAvg(double tot) {
+		this.avg= avg;
 	}
 	
 	
